@@ -10,6 +10,9 @@
 4. Download data using **!pip install roboflow**
 5. Run The cells
 
+Also You can accses them by links 
+Enhanced Model https://www.kaggle.com/code/millkan/notebook9adfff1c47
+Base Model https://www.kaggle.com/code/millkan/notebookf97052f66e
 ## Detection
 
 1. You need to clone git clone the Yolo Models (you can use ofiical yolo github page)
