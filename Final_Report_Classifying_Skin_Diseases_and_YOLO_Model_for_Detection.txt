@@ -1,0 +1,144 @@
+﻿Final Report: Classifying Skin Diseases and YOLO Model for Detection
+
+
+Course: Applied Machine Learning
+Supervisor: Aiymbay Sunggat
+Group: BDA-2202
+Team members: Nuraiym Naukanova, Darkhan Mutashev
+Date: 19.11.2024 
+                                        
+                                
+                        
+                
+1. Project Overview 
+In this project, we trained and evaluated a deep learning model for skin disease classification using a dataset of medical images. The task involved comparing the performance of a baseline model using a pretrained ResNet-50 architecture and an enhanced version with additional layers, such as Dropout and Layer Normalization, to improve generalization and reduce overfitting. The model was trained using the Adam optimizer with a learning rate scheduler to adjust the learning rate during training, and it was evaluated over multiple epochs. We assessed the model's performance using key classification metrics: accuracy, F1-score, precision, and recall. The results showed a well-balanced performance in correctly identifying skin disease types, with a final accuracy of 79.05%, precision of 81.3%, recall of 79.05%, and an F1-score of 0.7888. Moreover, we used YOLO-based Object Detection Model, to detect and locate skin lesions in images.
+                                                           
+2. Dataset and Preprocessing
+Classification Dataset:
+* Source: Skin Diseases Classification Dataset (Roboflow)
+* This dataset contains images of skin lesions labeled with different types of skin diseases. The classification model will be trained on this dataset to categorize skin lesions. Classes: Acne, Atopic, Bcc
+  
+
+Figure 1.
+  
+
+Figure 2. Datasets for classification
+YOLO Dataset:
+* Source: Skin Diseases YOLO Dataset (Roboflow)
+* This dataset provides annotated images for YOLO-based object detection. The model will be trained to detect skin lesions and locate them within bounding boxes. The goal is to identify lesions in real-world scenarios where detection and localization are necessary for further examination.
+  
+
+Figure 3.
+  
+
+Figure 4. Datasets for Yolo model
+
+
+
+
+                                        
+In this project, we trained and evaluated a deep learning model for skin disease classification using a medical image dataset.
+* Image Preprocessing: All images were resized to 640x640 pixels, converted into tensors, and normalized using ImageNet's mean and standard deviation values to ensure consistent input and improve model training.
+* Data Splitting: The dataset was divided into two parts:
+   * Training Set: The training set contained images used to train the model.
+   * Validation Set: The validation set was used to tune the model and assess its performance during training.
+* Data Augmentation: We applied several augmentation techniques on the training data to enhance model generalization and reduce overfitting. These included random horizontal flips, random rotations, and color jittering.
+* Model Architecture: We used a pretrained ResNet-50 model as the base, enhancing it by adding dropout layers for regularization and layer normalization for improved feature representation.
+* Training & Evaluation: The model was trained for 15 epochs using the Adam optimizer with a learning rate scheduler. We evaluated the model's performance using accuracy, precision, recall, and F1-score, achieving a validation accuracy of 79.05%, precision of 81.3%, recall of 79.05%, and an F1-score of 0.7888.
+  
+
+Figure 5.  The Training and Evalution. The given the accuracy, precision, recal and F1-score. In this part of the code, I check if a GPU is available by using the torch.device() function, and then I assign either "cuda" or "cpu" to the device variable accordingly. This ensures that the model uses the most efficient hardware for computation. Afterward, I print a label, "Validation Metrics:", to clearly indicate that the next part of the output will display the performance metrics on the validation set. Finally, I call the evaluate_model function, which takes in the trained model, the validation data loader, and the device. This function computes the evaluation metrics and prints them, allowing me to assess how well the model performs on unseen data.
+  
+
+Figure 6.
+  
+
+Figure 7.
+Enhanced Model
+To improve upon the baseline, the enhanced model incorporated additional techniques to increase capacity, improve generalization, and reduce overfitting. The enhancements included data augmentation, dropout layers, layer normalization, and an optimized fully connected classification head.
+Model Architecture
+* ResNet-50 Backbone: The base architecture used ResNet-50 pretrained on ImageNet for feature extraction.
+* Feature Extraction Layers:
+   * Retained ResNet's convolutional layers with additional dropout layers to reduce overfitting.
+   * Batch Normalization layers were added to normalize the intermediate feature maps, improving stability during training.
+* Classification Layers:
+   * A fully connected layer with 2048 units was added, followed by a Layer Normalization step.
+   * A Dropout layer with a rate of 0.2 was introduced before the final layer to mitigate overfitting.
+   * The final output layer was customized to match the number of classes in the dataset (3 classes).
+This enhanced design allowed the model to better generalize by leveraging augmented data, regularization techniques, and improved architectural components, leading to superior classification performance over the baseline model.
+
+
+  
+
+Figure 8.
+  
+
+Figure 9. For the figures 6-7 there given the code of enhanced model. This code essentially builds upon a pre-trained ResNet50 model by enhancing it with regularization techniques such as dropout and layer normalization, which helps in improving the model’s generalization to new data.
+  
+
+  
+
+Figure 10.
+                                
+                
+                                
+ Conclusion 
+The enhanced model demonstrated strong performance in classifying skin diseases, achieving a validation accuracy of 79.05% with significant improvements in generalization and robustness. This validates the effectiveness of incorporating additional dropout layers and layer normalization into a pretrained ResNet-50 architecture. These enhancements, combined with data augmentation techniques such as random flips, rotations, and color jittering, contributed to reducing overfitting and improving feature representation. The project highlights how thoughtful architectural modifications and preprocessing strategies can significantly enhance the performance of deep learning models in medical image classification tasks.
+
+
+
+
+
+
+Yolo
+The YOLO (You Only Look Once) model is a state-of-the-art real-time object detection system that excels at identifying objects in images. When applied to skin disease detection, the effectiveness of YOLO depends on factors like dataset size, quality, lesion size, and diversity. Below, we provide a detailed comparison of medium and small datasets for detecting skin diseases and define key aspects to consider.
+
+
+  
+
+Figure 11. Confusion matrix of medium
+  
+
+Figure 12.
+  
+
+Figure 13.
+
+
+
+
+
+
+Results and Comparison 
+  
+
+Figure 14. There seen that the medium one can detect even eczema, while the small one can show only psoriasis. The classes are more.
+* Achieves higher mAP due to a deeper architecture and more parameters.
+* Better at detecting small and overlapping objects, making it suitable for more complex datasets.
+* More precise in detecting small objects and differentiating overlapping instances.
+* YOLO Medium outperforms YOLO Small in precision and recall due to its enhanced capacity.
+
+
+
+
+  
+
+Figure 15. Confusion matrix of small
+  
+
+Figure 16.
+  
+
+Figure 17.
+Results and Comparison 
+  
+
+Figure 18. The shown only 2 skin diseases as an example for small model, while the medium one can detect more.
+* Performs adequately on simpler datasets with fewer classes and less crowded scenes.
+* Struggles with smaller objects or objects in complex backgrounds.
+* Handles large and medium objects well.
+* Can miss small objects or poorly distinguish overlapping ones.
+Link for github:
+https://github.com/TheorityODWEL/Skin-diseases-Classification-Detetion-Project
+Link for streamlit:
+skin-diseases-classification-detection-jqpwwiavyashxacj7sphkd.streamlit.app
